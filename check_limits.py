@@ -1,5 +1,5 @@
 
-def temp_ok(tmp):
+def temp_ok(temperature):
   if temperature < 0 or temperature > 45:
     print('Temperature is out of range!')
     return False
