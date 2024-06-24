@@ -2,18 +2,15 @@
 def temp_ok(tmp):
   if temperature < 0 or temperature > 45:
     return False
-  else:
-    return True
+  return True
 def soc_ok(soc):
   if soc < 20 or soc > 80:
     return False
-  else:
-    return True
+  return True
 def charge_ok(charge_rate):
   if charge_rate > 0.8:
     return False
-  else:
-    return True
+  return True
 
 
 def battery_is_ok(temperature, soc, charge_rate):
@@ -26,7 +23,7 @@ def battery_is_ok(temperature, soc, charge_rate):
   if(temp_ok(temperature)and charge_ok(charge_rate) and soc_ok(soc)):
     return True
   else:
-    return True
+    return False
 
 
 if __name__ == '__main__':
