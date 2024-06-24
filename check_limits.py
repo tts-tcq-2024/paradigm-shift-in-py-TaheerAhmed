@@ -17,13 +17,7 @@ def charge_ok(charge_rate):
 
 
 def battery_is_ok(temperature, soc, charge_rate):
-  # if temperature < 0 or temperature > 45:
-  #   return False
-  # elif soc < 20 or soc > 80:
-  #   return False
-  # elif charge_rate > 0.8:
-  #   return False
-  return (temp_ok(temperature)and charge_ok(charge_rate) and soc_ok(soc)):
+  return temp_ok(temperature)and charge_ok(charge_rate) and soc_ok(soc)
 
 
 
