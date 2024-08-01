@@ -72,13 +72,25 @@ def map_charge_rate_to_condition(charge_rate):
 def translate_condition_to_message(condition):
     return translations[language].get(condition, 'Unknown condition.')
 
-def compute_overall_status(temperature, soc, charge_rate):
-    # Logic can be adjusted based on the desired outcome
-    if 'BREACH' in map_soc_to_condition(soc) or 'BREACH' in map_temp_to_condition(temperature) or 'BREACH' in map_charge_rate_to_condition(charge_rate):
+def is_breach(condition):
+    return 'BREACH' in condition
+
+def is_warning(condition):
+    return 'WARNING' in condition
+
+def assess_battery_status(soc_condition, temp_condition, charge_rate_condition):
+    if any(is_breach(condition) for condition in [soc_condition, temp_condition, charge_rate_condition]):
         return 'Battery status: CRITICAL'
-    if 'WARNING' in map_soc_to_condition(soc) or 'WARNING' in map_temp_to_condition(temperature) or 'WARNING' in map_charge_rate_to_condition(charge_rate):
+    if any(is_warning(condition) for condition in [soc_condition, temp_condition, charge_rate_condition]):
         return 'Battery status: WARNING'
     return 'Battery status: NORMAL'
+
+def compute_overall_status(temperature, soc, charge_rate):
+    soc_condition = map_soc_to_condition(soc)
+    temp_condition = map_temp_to_condition(temperature)
+    charge_rate_condition = map_charge_rate_to_condition(charge_rate)
+
+    return assess_battery_status(soc_condition, temp_condition, charge_rate_condition)
 
 def check_battery_status(temperature, soc, charge_rate):
     soc_condition = map_soc_to_condition(soc)
